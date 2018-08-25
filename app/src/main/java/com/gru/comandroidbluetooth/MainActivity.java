@@ -8,13 +8,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gru.comandroidbluetooth.ConexionBluetooth.ConectarDispositivo;
+import com.gru.comandroidbluetooth.ConexionBluetooth.LeerPulseras;
+import com.gru.comandroidbluetooth.Helper.ILectura;
 
 import java.io.InputStream;
 
+
+/*
+    TODO
+    * Para detener el hilo hago: conexion.setHilo_corriendo(false);
+    * para volver a lanzarlo:
+    * conexion.setHilo_corriendo(true);
+                conexion.empezarLectura();
+    *
+ */
 public class MainActivity extends AppCompatActivity {
 
     TextView txtVincular;
@@ -23,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private  String valorLlave="";
     private int count=0;
     BluetoothSocket socket;
+    private ConectarDispositivo conexion;
+
+    LeerPulseras pulseras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +46,23 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Bienvenido");
 
-        txtVincular  = findViewById(R.id.txtConectar);
-        mostrarLlave = findViewById(R.id.txtCodigoPulsera);
-
-
-        ConectarDispositivo.getInstancia(this).empezarLectura();
+        conexion = ConectarDispositivo.getInstancia(this);
 
 
 
-
-        txtVincular.setOnClickListener(new View.OnClickListener() {
+        Button btnHilo = findViewById(R.id.btnHilo);
+        btnHilo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,ListarDispositivosActivity.class));
+              conexion.setHilo_corriendo(false);
+            }
+        });
+        Button iniciar = findViewById(R.id.btnHiloSeguir);
+        iniciar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                conexion.setHilo_corriendo(true);
+                conexion.empezarLectura();
             }
         });
     }
@@ -94,6 +113,43 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void pararHilo()
+    {
+        conexion.setHilo_corriendo(false);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        Log.e("estoy en","on post resume");
+        if(conexion.getSocket() !=null)
+        {
+            conexion.setHilo_corriendo(true);
+            conexion.empezarLectura();
+            Log.e("conexion","soket vinculado");
+        }else {
+            Log.e("conexion","soket null");
+            //conexion.setHilo_corriendo(true);
+            Intent i = new Intent(MainActivity.this,VinculandoDispositivoActivity.class);
+
+            startActivity(i);
+            finish();
+            Toast.makeText(this,"Se perdió la conexión, reconectando",Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        pararHilo();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        pararHilo();
+    }
 
     private String convertirValorObtenido(byte [] data)
     {
@@ -105,4 +161,6 @@ public class MainActivity extends AppCompatActivity {
         Log.e("valor",sb.toString());
         return sb.toString();
     }
+
+
 }

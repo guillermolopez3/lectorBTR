@@ -10,13 +10,17 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.gru.comandroidbluetooth.Helper.Constants;
+import com.gru.comandroidbluetooth.Helper.IConexionCorrecta;
 import com.gru.comandroidbluetooth.Helper.IErrorVincular;
+import com.gru.comandroidbluetooth.Helper.ILectura;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.nio.file.FileAlreadyExistsException;
 import java.util.Set;
+
+import static java.lang.Thread.sleep;
 
 public class ConectarDispositivo
 {
@@ -25,8 +29,10 @@ public class ConectarDispositivo
     private BluetoothDevice lector = null;
 
     private IErrorVincular iErrorVincular;
+    private IConexionCorrecta iConexionCorrecta;
 
-    private int cantidad_reconexiones=0;
+    private int cantidad_reconexiones=0; //variable para reconectar hasta 6 veces antes de avisar
+    private boolean hilo_corriendo = true;
 
 
 
@@ -48,48 +54,31 @@ public class ConectarDispositivo
         return instancia;
     }
 
+    private ConectarDispositivo(Activity activity)
+    {
+        this.activity=activity;
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if(activity instanceof IErrorVincular && activity instanceof IConexionCorrecta)
+        {
+            iErrorVincular      = (IErrorVincular)activity;
+            iConexionCorrecta   = (IConexionCorrecta)activity;
+        }
+
+
+    }
 
     public BluetoothAdapter getmBluetoothAdapter() {
         return mBluetoothAdapter;
     }
 
-    private ConectarDispositivo(Activity activity)
-    {
-        this.activity=activity;
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if(activity instanceof IErrorVincular)
-        {
-            iErrorVincular = (IErrorVincular)activity;
-        }
 
 
-        /*if(mBluetoothAdapter==null){
+    public InputStream getInputStream() {
+        return inputStream;
+    }
 
-        }
-
-        //verifico si esta habilitado el bluetooth, si no es asi le digo al usuario si lo quiere hablitar
-        if(!mBluetoothAdapter.isEnabled()){
-            Log.e("El bluet esta: ","deshabilitado");
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-             activity.startActivityForResult(enableBtIntent,REQUEST_ENABLE_BT);
-        }
-        else {
-            Log.e("El bluet esta: ","habilitado");
-        }
-
-        pairedDeviace = mBluetoothAdapter.getBondedDevices(); //obtengo los disposit ya vinculados
-
-        if(pairedDeviace.size()>0)
-        {
-            for(BluetoothDevice device : pairedDeviace) //recorro la lista y los muestroen el listView
-            {
-                lector=device;
-            }
-
-        }
-        else {
-            Log.e("Disposit ya vinculados","0");
-        }*/
+    public BluetoothSocket getSocket() {
+        return socket;
     }
 
     //busca si los aparatitos estan vinculados en android, si es asi inicia la conexion
@@ -143,8 +132,9 @@ public class ConectarDispositivo
                     if(socket.isConnected())
                     {
                         Log.e("estado soket: ","conectado:");
+                        //empezarLectura();
+                        iConexionCorrecta.coneccionCorrecta(true);
                     }
-                    //leer();
 
                 }catch (Exception ex){
                     Log.e("error","conectar:" + ex.getMessage());
@@ -162,47 +152,50 @@ public class ConectarDispositivo
         }
    }
 
-    public InputStream getInputStream() {
-        return inputStream;
-    }
-
-    public BluetoothSocket getSocket() {
-        return socket;
-    }
 
     public void empezarLectura()
     {
-        final boolean termino=false;
-        final Handler handler = new Handler();
-
-
         Thread hilo = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (!Thread.currentThread().isInterrupted() && !termino)
+                InputStream tmpInputStream = null;
+
+                try{
+                    tmpInputStream = socket.getInputStream();
+                }catch (IOException e){Log.e("Error","input" + e.getMessage());}
+
+                inputStream = tmpInputStream;
+
+                int bytes;
+
+                while (hilo_corriendo)
                 {
-                    try {
-                        int byteAvaiable = inputStream.available();
-                        if(byteAvaiable>0)
-                        {
-                            byte[] paketByte= new byte[byteAvaiable];
-                            inputStream.read(paketByte);
+                    try{
 
-                            valorLlave+= convertirValorObtenido(paketByte);
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    mostrarValor();
-                                }
-                            });
-                        }
-                    }catch (Exception e){Log.e("Error de byte", "fallo");}
+                        byte[] buffer = new byte[inputStream.available()];
+                        bytes = inputStream.read(buffer);
+                        //handler.obtainMessage(Constant.MSG_LEER,bytes,-1,buffer).sendToTarget();
+                        Log.e("Leyendo","pulseras");
+                        //iLectura.lecturaPulsera("prueba");
+                        sleep(1000);
+                    }catch (IOException e){}
+                    catch (InterruptedException ex){}
+
                 }
-
             }
         });
+        hilo.setName("lectura");
         hilo.start();
     }
+
+    public boolean getHilo_corriendo() {
+        return hilo_corriendo;
+    }
+
+    public void setHilo_corriendo(boolean hilo_corriendo) {
+        this.hilo_corriendo = hilo_corriendo;
+    }
+
     private void mostrarValor()
     {
         if(count==0){

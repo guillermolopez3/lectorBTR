@@ -14,7 +14,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.gru.comandroidbluetooth.ConexionBluetooth.ConectarDispositivo;
+import com.gru.comandroidbluetooth.Helper.IConexionCorrecta;
 import com.gru.comandroidbluetooth.Helper.IErrorVincular;
+import com.gru.comandroidbluetooth.Helper.ILectura;
 
 /* TODO: 22/08/2018
 
@@ -23,7 +25,7 @@ Esta es la clase que se encarga de conectar, cada vez que el soket no este conec
     * 1- Compruebo que el BT este activado
     * 2- Vinculo el dispositivo verificando que los aparatos ya esten vinculados
 */
-public class VinculandoDispositivoActivity extends AppCompatActivity implements IErrorVincular {
+public class VinculandoDispositivoActivity extends AppCompatActivity implements IErrorVincular,IConexionCorrecta {
 
     ProgressBar progressBar;
     ConectarDispositivo conectar;
@@ -41,9 +43,10 @@ public class VinculandoDispositivoActivity extends AppCompatActivity implements 
 
         progressBar = findViewById(R.id.progressBar);
 
+        conectar = null;
         conectar = ConectarDispositivo.getInstancia(this);
 
-
+        Log.e("vinculando disp","on create");
         tieneBluetoothActivado();
 
 
@@ -105,5 +108,20 @@ public class VinculandoDispositivoActivity extends AppCompatActivity implements 
     @Override
     public void mensajeErrorVinculacion(String error) {
         Toast.makeText(this,error,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void coneccionCorrecta(Boolean conectado) {
+        if(conectado)
+        {
+            startActivity(new Intent(VinculandoDispositivoActivity.this,MainActivity.class));
+            finish();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }

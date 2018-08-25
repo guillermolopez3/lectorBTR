@@ -34,13 +34,22 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/btnBuscar"
+            android:id="@+id/btnHilo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:layout_marginTop="20dp"
-            android:text="Buscar"/>
+            android:text="Parar Hilo"/>
+
+        <Button
+            android:id="@+id/btnHiloSeguir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:layout_marginTop="20dp"
+            android:text="Iniciar Hilo"/>
 
         <TextView
             android:id="@+id/txtConectar"
