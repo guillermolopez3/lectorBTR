@@ -14,9 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.gru.comandroidbluetooth.ConexionBluetooth.ConectarDispositivo;
-import com.gru.comandroidbluetooth.Helper.IConexionCorrecta;
-import com.gru.comandroidbluetooth.Helper.IErrorVincular;
-import com.gru.comandroidbluetooth.Helper.ILectura;
+import com.gru.comandroidbluetooth.Helper.IConexionBT;
 
 /* TODO: 22/08/2018
 
@@ -24,8 +22,9 @@ Esta es la clase que se encarga de conectar, cada vez que el soket no este conec
 
     * 1- Compruebo que el BT este activado
     * 2- Vinculo el dispositivo verificando que los aparatos ya esten vinculados
+    * 3- Ver xq la lectura de la pulsera funciona con en activity VinculandoDispos y no con leer pulseras
 */
-public class VinculandoDispositivoActivity extends AppCompatActivity implements IErrorVincular,IConexionCorrecta {
+public class VinculandoDispositivoActivity extends AppCompatActivity implements IConexionBT {
 
     ProgressBar progressBar;
     ConectarDispositivo conectar;
@@ -43,7 +42,6 @@ public class VinculandoDispositivoActivity extends AppCompatActivity implements 
 
         progressBar = findViewById(R.id.progressBar);
 
-        conectar = null;
         conectar = ConectarDispositivo.getInstancia(this);
 
         Log.e("vinculando disp","on create");
@@ -105,23 +103,26 @@ public class VinculandoDispositivoActivity extends AppCompatActivity implements 
         }
     }
 
-    @Override
-    public void mensajeErrorVinculacion(String error) {
-        Toast.makeText(this,error,Toast.LENGTH_LONG).show();
-    }
 
     @Override
     public void coneccionCorrecta(Boolean conectado) {
         if(conectado)
         {
-            startActivity(new Intent(VinculandoDispositivoActivity.this,MainActivity.class));
+            startActivity(new Intent(VinculandoDispositivoActivity.this,LeerPulseraActivity.class));
             finish();
         }
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
+    public void errorVincular(String mensaje) {
+        Toast.makeText(this,mensaje,Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    public void idPulsera(String nro_pulsera) {
+        Intent i = new Intent(this,MainPacienteActivity.class);
+        i.putExtra("pulsera",nro_pulsera);
+        startActivity(i);
+    }
+
 }

@@ -4,20 +4,13 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.Intent;
-import android.os.Handler;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.gru.comandroidbluetooth.Helper.Constants;
-import com.gru.comandroidbluetooth.Helper.IConexionCorrecta;
-import com.gru.comandroidbluetooth.Helper.IErrorVincular;
-import com.gru.comandroidbluetooth.Helper.ILectura;
+import com.gru.comandroidbluetooth.Helper.IConexionBT;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Method;
-import java.nio.file.FileAlreadyExistsException;
 import java.util.Set;
 
 import static java.lang.Thread.sleep;
@@ -28,8 +21,7 @@ public class ConectarDispositivo
     private Activity activity;
     private BluetoothDevice lector = null;
 
-    private IErrorVincular iErrorVincular;
-    private IConexionCorrecta iConexionCorrecta;
+    private IConexionBT iConexionBT;
 
     private int cantidad_reconexiones=0; //variable para reconectar hasta 6 veces antes de avisar
     private boolean hilo_corriendo = true;
@@ -46,11 +38,11 @@ public class ConectarDispositivo
 
 
 
-    public static ConectarDispositivo getInstancia(Activity ac)
+    public static ConectarDispositivo getInstancia(Activity a)
     {
-        if(instancia == null){
-            instancia = new ConectarDispositivo(ac);
-        }
+       if(instancia == null){
+                instancia = new ConectarDispositivo(a);
+       }
         return instancia;
     }
 
@@ -58,12 +50,13 @@ public class ConectarDispositivo
     {
         this.activity=activity;
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if(activity instanceof IErrorVincular && activity instanceof IConexionCorrecta)
+
+        if(activity instanceof IConexionBT)
         {
-            iErrorVincular      = (IErrorVincular)activity;
-            iConexionCorrecta   = (IConexionCorrecta)activity;
+            iConexionBT   = (IConexionBT)activity;
         }
 
+        Log.e("activity conec", activity.getLocalClassName());
 
     }
 
@@ -71,7 +64,9 @@ public class ConectarDispositivo
         return mBluetoothAdapter;
     }
 
-
+    public BluetoothDevice getBluetDeviace() {
+        return lector;
+    }
 
     public InputStream getInputStream() {
         return inputStream;
@@ -99,12 +94,12 @@ public class ConectarDispositivo
             }
             if(lector == null)
             {
-                iErrorVincular.mensajeErrorVinculacion("Los dispositivos vinculados no corresponden a los autorizados");
+                iConexionBT.errorVincular("Los dispositivos vinculados no corresponden a los autorizados");
             }
 
         }
         else { //no tengo dispositivos vinculados
-            iErrorVincular.mensajeErrorVinculacion("No hay dispositivos vinculados en el sistema");
+            iConexionBT.errorVincular("No hay dispositivos vinculados en el sistema");
         }
     }
 
@@ -132,8 +127,7 @@ public class ConectarDispositivo
                     if(socket.isConnected())
                     {
                         Log.e("estado soket: ","conectado:");
-                        //empezarLectura();
-                        iConexionCorrecta.coneccionCorrecta(true);
+                        iConexionBT.coneccionCorrecta(true);
                     }
 
                 }catch (Exception ex){
@@ -144,12 +138,7 @@ public class ConectarDispositivo
 
             }
         });
-        if(cantidad_reconexiones <6) //intento la reconexión hasta 6 veces
-        {
-            hi.start();
-        }else {
-            iErrorVincular.mensajeErrorVinculacion("No se puede vincular el dispositivo, verifique que el mismo este encendido o cerca de la tablet ");
-        }
+        hi.start();
    }
 
 
@@ -174,12 +163,20 @@ public class ConectarDispositivo
 
                         byte[] buffer = new byte[inputStream.available()];
                         bytes = inputStream.read(buffer);
-                        //handler.obtainMessage(Constant.MSG_LEER,bytes,-1,buffer).sendToTarget();
-                        Log.e("Leyendo","pulseras");
-                        //iLectura.lecturaPulsera("prueba");
-                        sleep(1000);
-                    }catch (IOException e){}
-                    catch (InterruptedException ex){}
+                        sleep(500); //no sacar, de esta manera lee todos los nros d ela pulsera de una vez y no en dos partes
+                        String mensaje = mostrarMensaje(buffer);//no eliminar, hace que no lea todos ceros cuando no lee
+                        if(!mensaje.isEmpty()){
+                            if(mensaje.length()==16){
+                                iConexionBT.idPulsera(mensaje);
+                            }
+                        }
+                        Log.e("mensaje leido",mensaje);
+                    }catch (IOException e){
+                        Log.e("exception","while corriendo hilo ioex");
+                    }
+                    catch (InterruptedException ex){
+                        Log.e("exception","interrupted excep");
+                    }
 
                 }
             }
@@ -187,6 +184,27 @@ public class ConectarDispositivo
         hilo.setName("lectura");
         hilo.start();
     }
+
+    private String mostrarMensaje(byte[] data) //convierto los bytes leido en codifo hexa
+    {
+
+        StringBuilder sb = new StringBuilder(data.length *3);
+        for(byte b : data)
+        {
+            sb.append(String.format("%02X ",b));
+        }
+        Log.e("valor",sb.toString());
+        return quitarEspacioNroPulsera(sb.toString());
+    }
+
+    private String quitarEspacioNroPulsera(String men)
+    {
+        String nuevo_numero= men.replace(" ","");
+        Log.e("nro pulsera sin espacio", nuevo_numero);
+        return nuevo_numero;
+    }
+
+
 
     public boolean getHilo_corriendo() {
         return hilo_corriendo;
@@ -218,5 +236,10 @@ public class ConectarDispositivo
         }
         Log.e("valor",sb.toString());
         return sb.toString();
+    }
+
+    public void finalizarObjeto() //metodo que finaliza el objeto para q al volver en el on resume se cree de nuevo y se lo pase a la interface la actividad q lo llama
+    {
+        instancia = null;
     }
 }

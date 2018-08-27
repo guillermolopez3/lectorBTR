@@ -23,8 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListarDispositivosActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainPacienteActivity" />
+        <activity android:name=".LeerPulseraActivity" />
         <activity android:name=".VinculandoDispositivoActivity"/>
     </application>
 
