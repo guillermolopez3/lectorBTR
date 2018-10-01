@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LeerPulseraActivity">
+    tools:context=".view.LeerPulseraActivity">
+
+    <include layout="@layout/appbar"/>
 
     <LinearLayout
         android:layout_width="match_parent"

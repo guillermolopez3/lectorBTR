@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#BB291F</color>
+    <color name="colorPrimaryDark">#1D2527</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="fondo_pantalla_login">#1D2527</color>
+    <color name="boton_inicio">#92D050</color>
+    <color name="borde_btn_inicio">#95989A</color>
+    <color name="blanco">#FFFFFF</color>
+    <color name="borde_input">#95989A</color>
+    <color name="fondo_panel_datos_pulsera">#535353</color>
+
+    <color name="fondo_pantalla_gral">#F6F4F4</color>
+
+
+    <color name="panel_derecho">#F1F2F7</color>
+    <color name="panel_izquierdo">#636570</color>
+    <color name="fondo_panel">#D8D8D8</color>
+    <color name="no_title">#D8D8D8</color>
+
+    <color name="azul">#1485CC</color>
+    <color name="negro">#000000</color>
 </resources>

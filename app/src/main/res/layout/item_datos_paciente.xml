@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:background="@color/fondo_panel"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <TextView
+            style="@style/titulo_datos_paciente"
+            android:text="Datos del paciente"/>
+
+        <LinearLayout
+           style="@style/layout_contenedor_datos_paciente">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/texto_titulo_seccion_datos_pacientes"
+                    android:text="Apellidos"/>
+
+                <TextView
+                    android:id="@+id/txtApellido"
+                    style="@style/texto_valor_seccion_datos_paciente"
+                    android:text="Apellido" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/texto_titulo_seccion_datos_pacientes"
+                    android:text="Nombres"/>
+
+                <TextView
+                    android:id="@+id/txtNombre"
+                    style="@style/texto_valor_seccion_datos_paciente"
+                    android:text="Nombre" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/texto_titulo_seccion_datos_pacientes"
+                    android:text="Fecha de nacimiento"/>
+
+                <TextView
+                    android:id="@+id/txtFecNac"
+                    style="@style/texto_valor_seccion_datos_paciente"
+                    android:text="Fecha nac" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/texto_titulo_seccion_datos_pacientes"
+                    android:text="Edad"/>
+
+                <TextView
+                    android:id="@+id/txtEdad"
+                    style="@style/texto_valor_seccion_datos_paciente"
+                    android:text="Edad" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/texto_titulo_seccion_datos_pacientes"
+                    android:text="Nacionalidad"/>
+
+                <TextView
+                    android:id="@+id/txtNacionalidad"
+                    style="@style/texto_valor_seccion_datos_paciente"
+                    android:text="Nacionalidad" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/texto_titulo_seccion_datos_pacientes"
+                    android:text="DNI"/>
+
+                <TextView
+                    android:id="@+id/txtDni"
+                    style="@style/texto_valor_seccion_datos_paciente"
+                    android:text="DNI" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/texto_titulo_seccion_datos_pacientes"
+                    android:text="Domicilio de residencia"/>
+
+                <TextView
+                    android:id="@+id/txtDomicilio"
+                    style="@style/texto_valor_seccion_datos_paciente"
+                    android:text="Domicilio" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/texto_titulo_seccion_datos_pacientes"
+                    android:text="Teléfono"/>
+
+                <TextView
+                    android:id="@+id/txtTel"
+                    style="@style/texto_valor_seccion_datos_paciente"
+                    android:text="Tel" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/texto_titulo_seccion_datos_pacientes"
+                    android:text="Celular"/>
+
+                <TextView
+                    android:id="@+id/txtCel"
+                    style="@style/texto_valor_seccion_datos_paciente"
+                    android:text="Cel" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/texto_titulo_seccion_datos_pacientes"
+                    android:text="Observaciones"/>
+
+                <TextView
+                    android:id="@+id/txtObservaciones"
+                    style="@style/texto_valor_seccion_datos_paciente"
+                    android:text="Observaciones" />
+            </LinearLayout>
+
+        </LinearLayout>
+</LinearLayout>

@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">ComAndroidBluetooth</string>
+
+    <string name="conectando_dispositivo">Comprobado la conexión con el dispositivos, internet y base de datos...</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="repe_dias">
+        <item>horas</item>
+        <item>minutos</item>
+    </string-array>
 </resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:gradientRadius="80%p"
+        android:startColor="#5b5b5b"
+        android:endColor="@color/fondo_pantalla_login"
+        android:type="radial" />
+</shape>

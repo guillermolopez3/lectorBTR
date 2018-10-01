@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:background="@color/fondo_panel"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        style="@style/titulo_datos_paciente"
+        android:text="Familiar de contacto"/>
+
+    <LinearLayout
+        style="@style/layout_contenedor_datos_paciente">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/texto_titulo_seccion_datos_pacientes"
+                android:text="Parentezco"/>
+
+            <TextView
+                android:id="@+id/txtParentezco"
+                style="@style/texto_valor_seccion_datos_paciente"
+                android:text="Parentezco" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/texto_titulo_seccion_datos_pacientes"
+                android:text="Apellido"/>
+
+            <TextView
+                android:id="@+id/txtApellidoContacto"
+                style="@style/texto_valor_seccion_datos_paciente"
+                android:text="Apellido" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/texto_titulo_seccion_datos_pacientes"
+                android:text="Nombre"/>
+
+            <TextView
+                android:id="@+id/txtNombreContacto"
+                style="@style/texto_valor_seccion_datos_paciente"
+                android:text="Nombre" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/texto_titulo_seccion_datos_pacientes"
+                android:text="Teléfono"/>
+
+            <TextView
+                android:id="@+id/txtTelContacto"
+                style="@style/texto_valor_seccion_datos_paciente"
+                android:text="Tel" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/texto_titulo_seccion_datos_pacientes"
+                android:text="Celular"/>
+
+            <TextView
+                android:id="@+id/txtCelContacto"
+                style="@style/texto_valor_seccion_datos_paciente"
+                android:text="Cel" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/texto_titulo_seccion_datos_pacientes"
+                android:text="Domicilio"/>
+
+            <TextView
+                android:id="@+id/txtDomContacto"
+                style="@style/texto_valor_seccion_datos_paciente"
+                android:text="Domicilio" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

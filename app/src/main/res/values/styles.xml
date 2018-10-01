@@ -1,11 +1,68 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+
+    <!-- Estilo para los diferentes paneles que conforman los datos del paciente -->
+
+    <style name="titulo_datos_paciente">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+    </style>
+
+    <style name="layout_contenedor_datos_paciente">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/blanco</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="texto_titulo_seccion_datos_pacientes">
+        <item name="android:layout_width">160dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="texto_valor_seccion_datos_paciente">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="view_separa_datos_paciente" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginLeft">8sp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:background">@color/fondo_panel</item>
+    </style>
+
+    <!-- Estilo para los botones-->
+    <style name="RisedButton" parent="Theme.AppCompat.Light">
+        <item name="colorButtonNormal">@color/boton_inicio</item>
+        <item name="colorControlHighlight">@color/fondo_pantalla_login</item>
+        <item name="android:textColor">@color/blanco</item>
     </style>
 
 </resources>

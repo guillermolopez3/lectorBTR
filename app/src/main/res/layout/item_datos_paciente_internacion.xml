@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:background="@color/fondo_panel"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        style="@style/titulo_datos_paciente"
+        android:text="Datos del la internación"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="10"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:background="@color/blanco"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/texto_titulo_seccion_datos_pacientes"
+                    android:text="Nro de internación"/>
+
+                <TextView
+                    android:id="@+id/txtNroInternacion"
+                    style="@style/texto_valor_seccion_datos_paciente"
+                    android:text="Nro internación" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/texto_titulo_seccion_datos_pacientes"
+                    android:text="Fecha de ingreso"/>
+
+                <TextView
+                    android:id="@+id/txtFechaIngreso"
+                    style="@style/texto_valor_seccion_datos_paciente"
+                    android:text="Fecha ingreso" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/texto_titulo_seccion_datos_pacientes"
+                    android:text="Pulsera"/>
+
+                <TextView
+                    android:id="@+id/txtPulsera"
+                    style="@style/texto_valor_seccion_datos_paciente"
+                    android:text="Pulsera" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/texto_titulo_seccion_datos_pacientes"
+                    android:text="Habitación | Cama"/>
+
+                <TextView
+                    android:id="@+id/txtHabitacionInternacion"
+                    style="@style/texto_valor_seccion_datos_paciente"
+                    android:text="Habitación" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/texto_titulo_seccion_datos_pacientes"
+                    android:text="Observaciones"/>
+
+                <TextView
+                    android:id="@+id/txtObservacionInternacion"
+                    style="@style/texto_valor_seccion_datos_paciente"
+                    android:text="Observaciones" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:background="@color/blanco"
+            android:layout_marginRight="10dp"
+            android:layout_weight="5">
+            <TextView
+                style="@style/texto_titulo_seccion_datos_pacientes"
+                android:text="Motivo de consulta"/>
+
+            <TextView
+                android:id="@+id/txtMotivoConsulta"
+                style="@style/texto_valor_seccion_datos_paciente"
+                android:text="motivo consulta " />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
