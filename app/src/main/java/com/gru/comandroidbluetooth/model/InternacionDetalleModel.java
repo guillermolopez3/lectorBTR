@@ -8,6 +8,9 @@ public class InternacionDetalleModel
     private InternacionModel internacion;
     private String detalle;
     private String created_at;
+    private int id_rol;
+    private String rol;
+    private String usuario;
 
     public InternacionDetalleModel(){}
 
@@ -21,6 +24,38 @@ public class InternacionDetalleModel
     public InternacionDetalleModel(String created_at,String detalle) {
         this.detalle = detalle;
         this.created_at = created_at;
+    }
+
+    public InternacionDetalleModel(String detalle, String created_at, int id_rol,String rol,String usuario) {
+        this.detalle = detalle;
+        this.created_at = created_at;
+        this.id_rol = id_rol;
+        this.rol = rol;
+        this.usuario=usuario;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public int getId_rol() {
+        return id_rol;
+    }
+
+    public void setId_rol(int id_rol) {
+        this.id_rol = id_rol;
     }
 
     public String getCreated_at() {

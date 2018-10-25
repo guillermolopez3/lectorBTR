@@ -55,7 +55,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.91"
-            app:layout_constraintStart_toEndOf="@+id/txtCuadoSeCreo"
+            app:layout_constraintStart_toEndOf="@+id/txtCuandoSeCreo"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
             card_view:srcCompat="@drawable/ic_action_eye_open" />

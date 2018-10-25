@@ -7,10 +7,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gru.comandroidbluetooth.R;
+import com.gru.comandroidbluetooth.helper.Comun;
 import com.gru.comandroidbluetooth.model.InternacionDetalleModel;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,23 +41,21 @@ public class EvolucionPacienteAdapter extends RecyclerView.Adapter<EvolucionPaci
     public void onBindViewHolder(@NonNull EvolucionViewModel holder, int position) {
         InternacionDetalleModel model = data.get(position);
 
-        //holder.doctor.setText(model.getDoctor());
+        holder.doctor.setText(model.getRol() + " - " + model.getUsuario());
         holder.descripcion.setText(model.getDetalle());
 
-        holder.fecha.setText(model.getCreated_at());
+        holder.fecha.setText(Comun.convertirStringEnFecha(model.getCreated_at()));
+
+        if(model.getId_rol()==2)
+        {
+            Picasso.with(activity).load(R.drawable.doctor).into(holder.imagen);
+        }else {
+            Picasso.with(activity).load(R.drawable.enfermera).into(holder.imagen);
+        }
     }
 
 
-    private String fecha(Date fecha_ing)
-    {
-        String fecha = "/ /";
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-            fecha = format.format(fecha_ing);
-        }catch (Exception ex){
-            Log.e("Error al conv: ","exception parse date: " + ex.getMessage());}
-        return fecha;
-    }
+
 
 
     @Override
@@ -65,11 +66,13 @@ public class EvolucionPacienteAdapter extends RecyclerView.Adapter<EvolucionPaci
     class EvolucionViewModel extends RecyclerView.ViewHolder
     {
         TextView doctor, descripcion, fecha;
+        ImageView imagen;
         public EvolucionViewModel(View itemView) {
             super(itemView);
             doctor = itemView.findViewById(R.id.itemTitulo);
             descripcion = itemView.findViewById(R.id.itemSubtitulo);
             fecha = itemView.findViewById(R.id.itemFecha);
+            imagen = itemView.findViewById(R.id.imgRol);
         }
     }
 }

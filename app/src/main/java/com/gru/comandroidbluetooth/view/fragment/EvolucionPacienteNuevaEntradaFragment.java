@@ -22,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.gru.comandroidbluetooth.R;
 import com.gru.comandroidbluetooth.backend.VolleySingleton;
+import com.gru.comandroidbluetooth.helper.Comun;
 import com.gru.comandroidbluetooth.helper.Constants;
 import com.gru.comandroidbluetooth.helper.ICallBackListener;
 
@@ -126,6 +127,7 @@ public class EvolucionPacienteNuevaEntradaFragment extends Fragment
                         Map<String,String> map = new HashMap<String,String>();
                         map.put("detalle",texto.getText().toString());
                         map.put("id",id_internacion);
+                        map.put("id_usuario",String.valueOf(Comun.obtenerDatosUsuarioLogueado(getActivity()).getId()));
                         return map;
                     }
                 });

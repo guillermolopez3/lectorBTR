@@ -4,14 +4,22 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gru.comandroidbluetooth.R;
+import com.gru.comandroidbluetooth.helper.Comun;
 import com.gru.comandroidbluetooth.model.DatosPacienteModel;
 import com.gru.comandroidbluetooth.model.InternacionModel;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class DatosPacienteFragment extends Fragment
 {
@@ -73,8 +81,8 @@ public class DatosPacienteFragment extends Fragment
     {
         verificarTextoVacio(apellido,model_paciente.getPaciente().getApellido());
         verificarTextoVacio(nombre,model_paciente.getPaciente().getNombre());
-        verificarTextoVacio(fec_nac,String.valueOf(model_paciente.getPaciente().getFecha_nacimiento()));
-        verificarTextoVacio(edad,"");
+        fec_nac.setText(Comun.convertirDateEnString(model_paciente.getPaciente().getFecha_nacimiento()));
+        verificarTextoVacio(edad,model_paciente.getPaciente().getEdad());
         verificarTextoVacio(nacionalidad,model_paciente.getPaciente().getNacionalidad());
         verificarTextoVacio(dni,model_paciente.getPaciente().getDni());
         verificarTextoVacio(domic,model_paciente.getPaciente().getDomicilio());
@@ -91,7 +99,9 @@ public class DatosPacienteFragment extends Fragment
         verificarTextoVacio(cel_par,model_paciente.getPaciente().getTel_contacto());
         verificarTextoVacio(domi_par,model_paciente.getPaciente().getDomicilio_contacto());
         verificarTextoVacio(nro_intern,model_paciente.getNro_internacion());
-        verificarTextoVacio(fec_ingr,model_paciente.getCreated_at());
+        //verificarTextoVacio(fec_ingr,model_paciente.getCreated_at());
+
+        fec_ingr.setText(Comun.convertirStringEnFecha(model_paciente.getCreated_at()));
         try{
             habit.setText("Habit " + model_paciente.getNro_habitacion() + " cama " + model_paciente.getCama());
         }catch (Exception e){ habit.setText("");}
@@ -115,5 +125,7 @@ public class DatosPacienteFragment extends Fragment
         }
         textView.setText(resul);
     }
+
+
 
 }

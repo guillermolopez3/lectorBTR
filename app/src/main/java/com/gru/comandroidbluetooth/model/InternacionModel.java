@@ -17,6 +17,8 @@ public class InternacionModel implements Serializable
     private Date fecha_egreso;
     private UsuarioModel usuario;
     private String diagnostico_final;
+    private String dias_internados;
+    private String nro_pulsera;
 
     public InternacionModel(){}
 
@@ -52,6 +54,35 @@ public class InternacionModel implements Serializable
         this.fecha_egreso = fecha_egreso;
         this.usuario = usuario;
         this.diagnostico_final = diagnostico_final;
+    }
+
+    public InternacionModel(int id, String created_at,String dias_internados, String nro_internacion, DatosPacienteModel paciente, String nro_pulsera, String nro_habitacion, String cama, String observacion, String motivo_consulta) {
+        this.id = id;
+        this.created_at = created_at;
+        this.nro_internacion = nro_internacion;
+        this.paciente = paciente;
+        this.nro_pulsera = nro_pulsera;
+        this.nro_habitacion = nro_habitacion;
+        this.cama = cama;
+        this.observacion = observacion;
+        this.motivo_consulta = motivo_consulta;
+        this.dias_internados = dias_internados;
+    }
+
+    public String getNro_pulsera() {
+        return nro_pulsera;
+    }
+
+    public void setNro_pulsera(String nro_pulsera) {
+        this.nro_pulsera = nro_pulsera;
+    }
+
+    public String getDias_internados() {
+        return dias_internados;
+    }
+
+    public void setDias_internados(String dias_internados) {
+        this.dias_internados = dias_internados;
     }
 
     public int getId() {

@@ -193,7 +193,7 @@ public class ConectarDispositivo
         StringBuilder sb = new StringBuilder(data.length *3);
         for(byte b : data)
         {
-            sb.append(String.format("%02X ",b));
+           sb.append(String.format("%02X ",b));
         }
         Log.e("valor",sb.toString());
         return quitarEspacioNroPulsera(sb.toString());
@@ -203,9 +203,21 @@ public class ConectarDispositivo
     {
         String nuevo_numero= men.replace(" ","");
         Log.e("nro pulsera sin espacio", nuevo_numero);
+       // conviertoADecimal(nuevo_numero);
         return nuevo_numero;
     }
 
+    private void conviertoADecimal(String nro_en_hexa)
+    {
+        try{
+            //int hexa = Integer.parseInt(nro_en_hexa.substring(6,8),16);
+            double hexa = Integer.parseInt(nro_en_hexa,16);
+            hexa = (Double) hexa;
+            //String decimal = String.valueOf(hexa,10).
+            Log.e("DECIMAL","" + hexa);
+
+        }catch (Exception e){Log.e("excep conv decimal",e.toString());}
+    }
 
 
     public boolean getHilo_corriendo() {

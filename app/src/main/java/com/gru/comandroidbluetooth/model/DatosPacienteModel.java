@@ -24,13 +24,13 @@ public class DatosPacienteModel implements Serializable
     private String tel_contacto;
     private String domicilio_contacto;
     private String parentezco;
+    private String edad;
 
     public DatosPacienteModel(){}
 
 
-    public DatosPacienteModel(int id, String created_at, String apellido, String nombre, String dni, String fecha_nacimiento, String nacionalidad, String domicilio, String tel, String cel, String observacion, String os, String plan, String nro_afiliado, String nombre_contacto, String apellido_contacto, String tel_contacto, String domicilio_contacto) {
+    public DatosPacienteModel(int id, String apellido, String nombre, String dni, String fecha_nacimiento, String nacionalidad, String domicilio, String tel, String cel, String observacion, String os, String plan, String nro_afiliado, String nombre_contacto, String apellido_contacto, String tel_contacto, String domicilio_contacto,String edad) {
         this.id = id;
-        this.created_at = created_at;
         this.apellido = apellido;
         this.nombre = nombre;
         this.dni = dni;
@@ -47,6 +47,15 @@ public class DatosPacienteModel implements Serializable
         this.apellido_contacto = apellido_contacto;
         this.tel_contacto = tel_contacto;
         this.domicilio_contacto = domicilio_contacto;
+        this.edad = edad;
+    }
+
+    public String getEdad() {
+        return edad;
+    }
+
+    public void setEdad(String edad) {
+        this.edad = edad;
     }
 
     public int getId() {

@@ -18,22 +18,25 @@
             android:layout_height="wrap_content"
             android:layout_weight="5"
             android:text="Repetir cada"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="5dp"
-            android:textSize="18sp"/>
+            android:padding="8dp"
+            android:textSize="22sp"/>
 
         <Spinner
             android:id="@+id/spTipo"
             android:layout_width="0dp"
             android:layout_weight="2.5"
+            android:padding="8dp"
+            android:background="@color/no_title"
             android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
             android:entries="@array/repe_dias" />
         <Spinner
             android:id="@+id/spHsMin"
             android:layout_width="0dp"
             android:layout_weight="2.5"
             android:layout_height="wrap_content"
-             />
+            android:padding="8dp"
+            android:background="@color/no_title"/>
 
     </LinearLayout>
 
@@ -41,25 +44,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:visibility="gone"
         android:orientation="horizontal">
         <RadioButton
             android:id="@+id/rbFinaliza"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:padding="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Finaliza el: "
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="5dp"
-            android:textSize="18sp"/>
+            android:padding="8dp"
+            android:textSize="22sp"/>
 
         <TextView
             android:id="@+id/txtFechaFin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="@color/no_title"
             android:text="__/__/____"
-            android:textSize="18sp"/>
+            android:textSize="22sp"/>
 
     </LinearLayout>
 
@@ -71,25 +77,29 @@
         <RadioButton
             android:id="@+id/rbCantTomas"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:padding="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Después de: "
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="5dp"
-            android:textSize="18sp"/>
+            android:padding="8dp"
+            android:textSize="22sp"/>
         <EditText
             android:id="@+id/etCantidadTomas"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:background="@color/no_title"
+            android:padding="8dp"
             android:inputType="number"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="tomas"
-            android:textSize="18sp"/>
+            android:padding="8dp"
+            android:textSize="22sp"/>
 
     </LinearLayout>
 

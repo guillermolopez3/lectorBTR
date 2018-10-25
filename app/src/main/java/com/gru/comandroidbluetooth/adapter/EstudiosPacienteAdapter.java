@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.gru.comandroidbluetooth.R;
 import com.gru.comandroidbluetooth.model.EstudiosPacienteModel;
 import com.gru.comandroidbluetooth.view.fragment.EstudiosPacienteDetalleFragment;
-import com.gru.comandroidbluetooth.view.fragment.EstudiosPacienteFragment;
 
 import java.util.ArrayList;
 
@@ -109,7 +108,7 @@ public class EstudiosPacienteAdapter extends RecyclerView.Adapter<EstudiosPacien
         public HolderEstudio(View itemView) {
             super(itemView);
             imagen = itemView.findViewById(R.id.imgTarea);
-            nro_estudio = itemView.findViewById(R.id.txtCuadoSeCreo);
+            nro_estudio = itemView.findViewById(R.id.txtCuandoSeCreo);
             tipo_estudio = itemView.findViewById(R.id.txtTarea);
             derivante = itemView.findViewById(R.id.txtCreadoPor);
             estado = itemView.findViewById(R.id.txtEstadoEstudio);

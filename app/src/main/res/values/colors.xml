@@ -21,4 +21,11 @@
 
     <color name="azul">#1485CC</color>
     <color name="negro">#000000</color>
+
+    <color name="txt_finalizado">#93CF38</color>
+    <color name="txt_pendiente" >#E3754B</color>
+    <color name="btn_dialog">#009688</color>
+
+    <color name="fondo_botones_menu">#D2184C</color>
+    <color name="transparente">#00000000</color>
 </resources>

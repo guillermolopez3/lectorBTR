@@ -3,10 +3,15 @@ package com.gru.comandroidbluetooth.view;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -16,6 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.gru.comandroidbluetooth.R;
 import com.gru.comandroidbluetooth.backend.VolleySingleton;
 import com.gru.comandroidbluetooth.conexionBluetooth.ConectarDispositivo;
+import com.gru.comandroidbluetooth.helper.Comun;
 import com.gru.comandroidbluetooth.helper.Constants;
 import com.gru.comandroidbluetooth.helper.IConexionBT;
 import com.gru.comandroidbluetooth.model.DatosPacienteModel;
@@ -47,6 +53,7 @@ public class LeerPulseraActivity extends AppCompatActivity implements IConexionB
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leer_pulsera);
 
+        Comun.showToolbar("Gestión de pacientes",false,this);
 
         conexion = ConectarDispositivo.getInstancia(this);
         conexion.setActivity(this);
@@ -130,7 +137,8 @@ public class LeerPulseraActivity extends AppCompatActivity implements IConexionB
 
     @Override
     public void idPulsera(String nro_pulsera) {
-       this.nro_pulsera = nro_pulsera;
+       //this.nro_pulsera = nro_pulsera;
+       convertirDecimal(nro_pulsera);
        //para mostrar un dialog en el hilo ppal tengo que llamar al hilo de la view
        runOnUiThread(new Runnable() {
            @Override
@@ -139,6 +147,18 @@ public class LeerPulseraActivity extends AppCompatActivity implements IConexionB
            }
        });
 
+    }
+
+    private void convertirDecimal(String nro_pulsera_exa)
+    {
+        try{
+            String x = nro_pulsera_exa.substring(6,14);//ayud memo, subStr(inicio lect,fin no inclus) ej Hola subs(0,2)=Ho
+            int hexa = Integer.parseInt(nro_pulsera_exa.substring(6,14),16);//convierto el valor a decimal
+            String nro_decimal = String.format("%010d",hexa);
+            Log.e("DECIMAL","" + nro_decimal);
+            this.nro_pulsera = nro_decimal;
+
+        }catch (Exception e){Log.e("excep conv decimal",e.toString());}
     }
 
     @Override
@@ -177,8 +197,7 @@ public class LeerPulseraActivity extends AppCompatActivity implements IConexionB
                                         JSONObject o = array.getJSONObject(i);
 
                                         DatosPacienteModel post = new DatosPacienteModel(
-                                                o.getInt("id"),
-                                                o.getString("created_at"),
+                                                o.getInt("id_paciente"),
                                                 o.getString("apellido"),
                                                 o.getString("nombre"),
                                                 o.getString("nro_documento"),
@@ -194,13 +213,16 @@ public class LeerPulseraActivity extends AppCompatActivity implements IConexionB
                                                 o.getString("nombre_contacto"),
                                                 o.getString("apellido_contacto"),
                                                 o.getString("tel_contacto"),
-                                                o.getString("domicilio_contacto")
+                                                o.getString("domicilio_contacto"),
+                                                o.getString("edad")
                                         );
                                         InternacionModel internacion = new InternacionModel(
-                                                o.getInt("id"),
+                                                o.getInt("id_internacion"),
                                                 o.getString("created_at"),
+                                                o.getString("dias_internado"),
                                                 o.getString("nro_internacion"),
                                                 post,
+                                                o.getString("nro_pulsera"),
                                                 o.getString("nro_habitacion"),
                                                 o.getString("cama"),
                                                 o.getString("observacion"),
@@ -213,15 +235,15 @@ public class LeerPulseraActivity extends AppCompatActivity implements IConexionB
                                 } catch (JSONException e)
                                 {
                                      Log.e("error al consultar", e.toString());
-                                    Toast.makeText(LeerPulseraActivity.this,"Error al obtener los datos del servidor",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(LeerPulseraActivity.this,"Error al obtener los datos del servidor. Verificar conexión de internet",Toast.LENGTH_LONG).show();
                                 }
                             }
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         dialog.dismiss();
-                        Toast.makeText(LeerPulseraActivity.this,"Error al obtener los datos del servidor",Toast.LENGTH_LONG).show();
-                        //Log.e("error al cargar perfil",error.getMessage());
+                        Toast.makeText(LeerPulseraActivity.this,"Error al obtener los datos del servidor. Verificar conexión de internet",Toast.LENGTH_LONG).show();
+                        Log.e("error al cargar perfil",error.toString());
                     }
                 }));
     }
@@ -230,7 +252,8 @@ public class LeerPulseraActivity extends AppCompatActivity implements IConexionB
     {
         if(lista.size()==0)
         {
-            dialog().show();
+            //dialog().show();
+            Toast.makeText(this, "La pulsera no se encuentra registrada", Toast.LENGTH_LONG).show();
         }
         else {
             Intent i = new Intent(LeerPulseraActivity.this,MainPacienteActivity.class);
@@ -266,4 +289,16 @@ public class LeerPulseraActivity extends AppCompatActivity implements IConexionB
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_usuario,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        Comun.actualizarMenu(menu,this);
+        return super.onPrepareOptionsMenu(menu);
+    }
 }
